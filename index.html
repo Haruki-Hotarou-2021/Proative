@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Proative</title>
+  </head>
+
+  <body>
+    
+  </body>
+  <script src="config.js"></script>
+  <script src="scenes.js"></script>
+  <script src="camera.js"></script>
+  <script src="objects.js"></script>
+  <script src="utils.js"></script>
+  <game-scripts></game-scripts>
+  <script src="Template/game.js"></script>
+  
+  <script>
+    function update() {
+    let lastTime = 0;
+    function loop(timestamp) {
+      const dt = timestamp - lastTime;
+      if (typeof TIC === 'function') {
+        TIC(dt);
+      }
+      lastTime = timestamp;
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  }
+  update();
+  </script>
+</html>
