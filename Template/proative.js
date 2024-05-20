@@ -29,58 +29,6 @@ screen.width = mainElement.offsetWidth;
 screen.height = mainElement.offsetHeight;
 
 
-// SCENES ------------------------------
-
-var _pauseEngine = false;
-
-// Cria uma cena
-const SCENES = [];
-class Scene {
-  constructor() {
-    this.objects = [];
-    this.element = document.createElement("div");
-    this.onRead = function() {};
-    this.element.setAttribute("style", `
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-size: 100% 100%;
-      background-color: #6495ED;
-      opacity: 0;
-      transition: opacity 1s;
-    `);
-
-    this.world = new p2.World({ gravity: [0, 5 * 150] });
-    this.world.setGlobalStiffness(1e5);
-    this.world.defaultContactMaterial.friction = 1;
-    this.world.solver.iterations = 20;
-
-    SCENES.push(this);
-  }
-
-  load() {
-    if (this_scene) {
-      document.body.removeChild(this_scene.element);
-    }
-    this_scene = this;
-    document.body.appendChild(this.element);
-    this.element.style.opacity = 1;
-    this_scene = this;
-    setTimeout(this.onRead);
-  }
-
-  update() {
-    for (var i = 0; i < this.objects.length; i++) {
-      this.objects[i].update();
-    }
-  }
-}
-const main = new Scene();
-let this_scene = undefined;
-
-
 // CAMERA ------------------------------
 
 // Cria uma camera
@@ -90,24 +38,20 @@ const camera = {
   width: 1,
   height: 1,
   rotation: 0,
-  follow: undefined,
   smooth: 1,
-  update() {
-    if (this.follow.body) {
-      var targetX = this.follow.body.position[0];
-      var targetY = this.follow.body.position[1];
-      var dx = (targetX - this.x) * this.smooth;
-      var dy = (targetY - this.y) * this.smooth;
-      this.x += dx;
-      this.y += dy;
-    } else {
-      var targetX = this.follow.x;
-      var targetY = this.follow.y;
-      var dx = (targetX - this.x) * this.smooth;
-      var dy = (targetY - this.y) * this.smooth;
-      this.x += dx;
-      this.y += dy;
-    }
+
+  // Função para seguir um objeto
+  follow(targetObject) {
+    // Calcular a posição alvo (considerando a posição e o offset do mainElement)
+    let targetX = targetObject.x + mainElement.offsetLeft;
+    let targetY = targetObject.y + mainElement.offsetTop;
+
+    // Aplicar suavização à posição da câmera
+    var dx = (targetX - this.x) * this.smooth;
+    var dy = (targetY - this.y) * this.smooth;
+    this.x += dx;
+    this.y += dy;
+    console.log('X: '+this.x, 'Y: '+this.y);
   }
 };
 
@@ -133,25 +77,25 @@ class Rect {
     rectElement.style.zIndex = this.z;
     rectElement.style.left = `${(this.x+screen.width/2)-(this.width/2)}px`;
     rectElement.style.bottom = `${(this.y+screen.height/2)-(this.height/2)}px`;
-    
+
     if (this.fill !== 'stroke') {
       rectElement.style.width = this.width + 'px';
       rectElement.style.height = this.height + 'px';
       rectElement.style.backgroundColor = this.color;
-      
-    }else{
-      
+
+    } else {
+
       rectElement.style.border = `${this.borderSize}px solid ${this.color}`;
       rectElement.style.width = `${this.width-2}px`;
       rectElement.style.height = `${this.height-2}px`;
       rectElement.style.backgroundColor = 'transparent';
     }
-    
+
     mainElement.appendChild(rectElement);
-    
+
   }
-  
-   // Destrói o retângulo
+
+  // Destrói o retângulo
   destroy() {
     mainElement.removeChild(this.rectElement);
   }
@@ -159,14 +103,14 @@ class Rect {
   onTouchStart(callback) {
     this.rectElement.addEventListener('touchstart', callback);
     */
-    
-    /*
-    this.rectElement.addEventListener('touchstart', this.onTouchStart.bind(this));
-    
-    this.isDragging = true; // Indica se o retângulo está sendo arrastado
-    this.startX = event.touches[0].clientX; // Posição inicial X do toque
-    this.startY = event.touches[0].clientY; // Posição inicial Y do toque
-    */
+
+  /*
+  this.rectElement.addEventListener('touchstart', this.onTouchStart.bind(this));
+  
+  this.isDragging = true; // Indica se o retângulo está sendo arrastado
+  this.startX = event.touches[0].clientX; // Posição inicial X do toque
+  this.startY = event.touches[0].clientY; // Posição inicial Y do toque
+  */
   //}
   /*
   onTouchMove(event) {
@@ -212,7 +156,7 @@ class Spr {
     this.img = img;
     this.smooth = smooth;
   }
-  
+
   display() {
     // Criar elemento DOM para o sprite
     this.spriteElement = document.createElement('img');
@@ -223,10 +167,10 @@ class Spr {
     this.spriteElement.style.height = this.height + 'px';
     this.spriteElement.style.left = `${(this.x+screen.width/2)-(this.width/2)}px`;
     this.spriteElement.style.bottom = `${(this.y+screen.height/2)-(this.height/2)}px`;
-    
-    if(!this.smooth) {
+
+    if (!this.smooth) {
       // Aplica as propriedades de renderização da imagem
-      this.spriteElement.style.imageRendering = 'pixelated'; 
+      this.spriteElement.style.imageRendering = 'pixelated';
       //this.spriteElement.style.imageRendering = '-moz-crisp-edges';
       //this.spriteElement.style.imageRendering = '-o-pixelated';
       //this.spriteElement.style.imageRendering = '-webkit-optimize-contrast';
@@ -236,7 +180,7 @@ class Spr {
     // Adicionar sprite ao DOM
     mainElement.appendChild(this.spriteElement);
   }
-  
+
   // Destrói o sprite
   destroy() {
     mainElement.removeChild(this.spriteElement);
@@ -262,5 +206,41 @@ function cls() {
 function newScript(script) {
   const _newScript = document.createElement("script");
   _newScript.src = script;
-  document.game-scripts.appendChild(_newScript);
+  document.game - scripts.appendChild(_newScript);
+}
+
+
+
+
+function pontoDeFocoMovel(obj) {
+  // Calculate the center of the screen relative to the mainElement
+  const centerX = screen.width / 2 + mainElement.offsetLeft;
+  const centerY = screen.height / 2 + mainElement.offsetTop;
+
+  // Calculate the offset needed to center the object on the screen
+  const offsetX = centerX - (obj.x + obj.width / 2);
+  const offsetY = centerY - (obj.y + obj.height / 2);
+
+  // Apply smoothing to the camera movement (optional)
+  const smooth = camera.smooth;
+  const dx = offsetX * smooth;
+  const dy = offsetY * smooth;
+
+  // Update the camera position with smoothing
+  camera.x += dx;
+  camera.y += dy;
+/*
+  // Clamp the camera position within the mainElement bounds (optional)
+  camera.x = Math.max(0, Math.min(camera.x, mainElement.offsetWidth - screen.width));
+  camera.y = Math.max(0, Math.min(camera.y, mainElement.offsetHeight - screen.height));
+*/
+  // Update the position of all displayed objects based on the camera movement
+  for (const child of mainElement.children) {
+    if (child.tagName === 'DIV') { // Assuming your objects are displayed as DIVs
+      const objX = parseFloat(child.style.left) + screen.width / 2;
+      const objY = parseFloat(child.style.bottom) + screen.height / 2;
+      child.style.left = `${objX - camera.x}px`;
+      child.style.bottom = `${objY - camera.y}px`;
+    }
+  }
 }

@@ -1,3 +1,5 @@
+// CAMERA ------------------------------
+
 // Cria uma camera
 const camera = {
   x: 0,
@@ -5,23 +7,18 @@ const camera = {
   width: 1,
   height: 1,
   rotation: 0,
-  follow: undefined,
   smooth: 1,
-  update() {
-    if (this.follow.body) {
-      var targetX = this.follow.body.position[0];
-      var targetY = this.follow.body.position[1];
-      var dx = (targetX - this.x) * this.smooth;
-      var dy = (targetY - this.y) * this.smooth;
-      this.x += dx;
-      this.y += dy;
-    }else{
-      var targetX = this.follow.x;
-      var targetY = this.follow.y;
-      var dx = (targetX - this.x) * this.smooth;
-      var dy = (targetY - this.y) * this.smooth;
-      this.x += dx;
-      this.y += dy;
-    }
+
+  // Função para seguir um objeto
+  follow(targetObject) {
+    // Calcular a posição alvo (considerando a posição e o offset do mainElement)
+    let targetX = targetObject.x + mainElement.offsetLeft;
+    let targetY = targetObject.y + mainElement.offsetBottom;
+
+    // Aplicar suavização à posição da câmera
+    var dx = (targetX - this.x) * this.smooth;
+    var dy = (targetY - this.y) * this.smooth;
+    this.x += dx;
+    this.y += dy;
   }
 };
