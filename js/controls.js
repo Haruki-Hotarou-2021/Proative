@@ -1,27 +1,31 @@
 // Cria um botão
 class Btn {
-  constructor(image, x = 0, y = 0, width = 50, height = 50, id = 'btn') {
-    this.id = id;
+  constructor(image, x = 0, y = 0, width = 50, height = 50, align = 'left') {
     this.image = image;
     this.x = x;
     this.y = y;
+    this.z = 9999999999999;
     this.width = width;
     this.height = height;
-    this.top = 10;
-    this.right = 10;
-    this.bottom = 10;
-    this.left = 10;
+    this.insert = align;
+    this.margin = 0;
     this.isPressed = false;
   }
   
   display() {
     // Cria o elemento DOM do botão
     this.buttonElement = document.createElement('button');
-    this.buttonElement.id = this.id.toString();
+    this.buttonElement.style.zIndex = this.z;
     this.buttonElement.style.width = this.width + 'px';
     this.buttonElement.style.height = this.height + 'px';
     this.buttonElement.style.position = 'fixed';
-    this.buttonElement.style.left = `${(this.x+screen.width/2)-(this.width/2)}px`;
+    this.buttonElement.style.margin = this.margin;
+    
+    if(this.insert == 'left') {
+      this.buttonElement.style.left = `${(this.x+screen.width/2)-(this.width/2)}px`;
+    } else if (this.insert == 'right') {
+      this.buttonElement.style.right = `${(this.x+screen.width/2)-(this.width/2)}px`
+    }
     this.buttonElement.style.bottom = `${(this.y+screen.height/2)-(this.height/2)}px`;
     this.buttonElement.style.cursor = 'pointer';
     this.buttonElement.style.backgroundImage = `url(${this.image})`;
@@ -75,9 +79,11 @@ const down = new Btn(undefined, w*-0.2, h*-0.4, 50, 50);
 buttons.push(down);
 
 const left = new Btn(undefined, w*-0.3, h*-0.3, 50, 50);
+left.margin = '0, 25, 0, 25';
 buttons.push(left);
 
 const right = new Btn(undefined, w*-0.1, h*-0.3, 50, 50);
+right.margin = '0, 25, 0, 25';
 buttons.push(right);
 
 const a = new Btn(undefined, 50, -150, 50, 50);
