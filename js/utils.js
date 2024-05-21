@@ -1,11 +1,10 @@
 // Limpa a tela
 function cls() {
-  // Get all child elements of the body
+  // Obtem todos os elementos filhos do body
   const bodyChildren = mainElement.childNodes;
 
-  // Iterate through the child elements in reverse order for efficient removal
   for (let i = bodyChildren.length - 1; i >= 0; i--) {
-    // Remove each child element from the body
+    // Remove cada elemento filho do body
     mainElement.removeChild(bodyChildren[i]);
   }
 }
@@ -21,11 +20,11 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'left', font =
   let textX = x + screen.width / 2;
   let textY = y + screen.height / 2;
 
-  // Create a text element
+  // Cria um elemento de texto
   const textElement = document.createElement('p');
   textElement.textContent = text;
 
-  // Set text style properties
+  // Define as propriedades do texto
   textElement.style.fontSize = `${fontSize}px`;
   textElement.style.color = color;
   textElement.style.position = 'fixed';
@@ -35,9 +34,9 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'left', font =
   
   //if(font !== 'Arial') {
 
-    // Function to check font existence
+    // Função para checar a existência da fonte
     async function checkFont(font) {
-      // Assuming font files are in the same directory (adjust path if needed)
+      
       const fontFileURL = `./${font}.ttf`; 
 
       const fontFace = new FontFace(font, `url('${fontFileURL}')`);
@@ -51,20 +50,21 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'left', font =
     }
 
 
-    // Check font existence and apply if available
+    // Checa a existência da fonte e aplica a fonte ao texto
     checkFont(font).then(fontExists => {
       if (fontExists) {
         textElement.style.fontFamily = font;
       } else {
-        textElement.style.fontFamily = 'Arial'; // Fallback font
+        textElement.style.fontFamily = 'Arial';
       }
-      // Append the text element to the DOM
+      
+      // Adiciona o texto ao elemento do DOM
       mainElement.appendChild(textElement);
     });
   //} else {
     //mainElement.appendChild(textElement)
   //}
 
-  // Return the text element for further customization (optional)
+  // Retorna o elemento de texto
   return textElement;
 }

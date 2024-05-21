@@ -1,6 +1,9 @@
+// EM DESENVOLVIMENTO
+
+
 var _pauseEngine = false;
 
-//Scenes
+// Scenes
 const SCENES = [];
 class Scene {
   constructor() {
