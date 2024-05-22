@@ -229,3 +229,45 @@ function pontoDeFocoMovel(obj) {
     }
   }
 }
+
+function print(text, x, y, fontSize = 20, color = '#000', align = 'center') {
+  
+  // Cria um elemento de texto
+  const textElement = document.createElement('p');
+  textElement.textContent = text;
+  
+  // Define as propriedades do texto
+  textElement.style.fontSize = `${fontSize}px`;
+  textElement.style.color = color;
+  textElement.style.position = 'fixed';
+  
+  // Adiciona o texto ao elemento do DOM
+  mainElement.appendChild(textElement);
+  
+  // Calcula o tamanho do texto
+  const textMetrics = textElement.getBoundingClientRect();
+  const textWidth = textMetrics.width;
+  const textHeight = textMetrics.height;
+  
+  // Define a origem do texto
+  let centerX = screen.width / 2;
+  let centerY = screen.height / 2;
+  let textX = x;
+  if (align == 'left') {
+      textX = x + centerX;
+  } else if (align == 'right') {
+      textX = (x - textWidth) + centerX;
+  } else {
+      textX = (x - textWidth / 2) + centerX;
+  }
+  
+  // Define a posição vertical do texto
+  let textY = y + centerY;
+  
+  // Define a posição do texto
+  textElement.style.left = `${textX}px`;
+  textElement.style.bottom = `${textY}px`;
+  
+  // Retorna o elemento de texto
+  return textElement;
+}

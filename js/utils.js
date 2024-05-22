@@ -68,3 +68,37 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'left', font =
   // Retorna o elemento de texto
   return textElement;
 }
+
+// Define o Título da página
+function setTitle(title) {
+  document.title = title;
+}
+
+// Define o favicon da página
+function setFavicon(url) {
+  const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+  link.type = 'image/x-icon';
+  link.rel = 'shortcut icon';
+  link.href = url;
+  document.head.appendChild(link);
+}
+
+// Recarrega a página
+function reload() {
+  window.location.reload();
+}
+
+// Aguardar segundos e executar callback
+function wait(seconds, callback) {
+  if (isNaN(seconds) || seconds < 0) {
+    console.error("O parâmetro 'seconds' deve ser um número não negativo");
+    return; // Retorna undefined se o parâmetro 'seconds' for inválido
+  }
+  if (typeof callback !== 'function') {
+    console.error("O parâmetro 'callback' deve ser uma função");
+    return; // Retorna undefined se o parâmetro 'callback' não for uma função
+  }
+  setTimeout(() => {
+    callback(); // Chama a função callback após o tempo de espera
+  }, seconds * 1000);
+}
