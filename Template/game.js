@@ -19,28 +19,19 @@ function TIC() {
   left.display();
   
   // Exibe hm texto na tela
-  print('Hey Devs!', player.x, player.y+10, 14, '#FFFFFF', 'center');
+  print('Hey Devs!', player.x, player.y+30, 14, '#FFFFFF');
   
   // Executa a função move()
   move()
 }
 
 
-let speed = 1;
+let speed = 2;
 
 function move() {
   if (right.isPressed) {
     player.x += speed;
-  }
-  if (left.isPressed) {
+  } else if (left.isPressed) {
     player.x -= speed;
   }
-  /*
-  if (btn(2)) {
-    spr1.x -= speed;
-  }
-  if (btn(3)) {
-    spr1.x += speed;
-  }
-  */
 }

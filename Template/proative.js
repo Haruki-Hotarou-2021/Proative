@@ -262,7 +262,7 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'center') {
   }
   
   // Define a posição vertical do texto
-  let textY = y + centerY;
+  let textY = (y - textHeight) + centerY;
   
   // Define a posição do texto
   textElement.style.left = `${textX}px`;
