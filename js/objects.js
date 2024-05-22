@@ -60,6 +60,12 @@ class Rect {
     mainElement.removeChild(this.rectElement);
   }
 }
+function rect(x = 0, y = 0, height = 50, width = 50, color = 'black', fill = 'fill') {
+  let rect = new Rect(x, y, height,width, color, fill);
+  rect.display();
+  return rect;
+}
+
 
 // Cria um sprite
 class Spr {
@@ -95,7 +101,9 @@ class Spr {
     }
 
     // Adiciona eventos de clique e touch para o sprite
+    /*
     this.spriteElement.addEventListener('click', this.onClick.bind(this));
+    */
     this.spriteElement.addEventListener('touchstart', this.onTouchStart.bind(this));
     this.spriteElement.addEventListener('touchend', this.onTouchEnd.bind(this));
 
@@ -103,12 +111,12 @@ class Spr {
     mainElement.appendChild(this.spriteElement);
   }
   
-
+/*
   // Callback para o evento de clique
   onClick() {
     this.isPressed = true;
   }
-
+*/
   // Callback para o evento de touchstart
   onTouchStart() {
     this.isPressed = true;
@@ -124,4 +132,8 @@ class Spr {
     mainElement.removeChild(this.spriteElement);
   }
 }
-
+function spr(x = 0, y = 0, width = 50, height = 50, img, smooth = false) {
+  let spr = new Spr(x, y, width, height, img, smooth);
+  spr.display();
+  return spr;
+}

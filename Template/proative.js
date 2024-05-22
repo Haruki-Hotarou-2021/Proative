@@ -114,6 +114,11 @@ class Rect {
     mainElement.removeChild(this.rectElement);
   }
 }
+function rect(x = 0, y = 0, height = 50, width = 50, color = 'black', fill = 'fill') {
+  let rect = new Rect(x, y, height,width, color, fill);
+  rect.display();
+  return rect;
+}
 
 // Cria um sprite
 class Spr {
@@ -170,6 +175,11 @@ class Spr {
   destroy() {
     mainElement.removeChild(this.spriteElement);
   }
+}
+function spr(x = 0, y = 0, width = 50, height = 50, img, smooth = false) {
+  let spr = new Spr(x, y, width, height, img, smooth);
+  spr.display();
+  return spr;
 }
 
 
