@@ -32,7 +32,9 @@ class Rect {
     }
     
     // Adiciona eventos de clique e touch para o retângulo
+    /*
     rectElement.addEventListener('click', this.onClick.bind(this));
+    */
     rectElement.addEventListener('touchstart', this.onTouchStart.bind(this));
     rectElement.addEventListener('touchend', this.onTouchEnd.bind(this));
     
@@ -40,10 +42,12 @@ class Rect {
     
   }
   
+  /*
     // Callback para o evento de clique
   onClick() {
     this.isPressed = true;
   }
+  */
 
   // Callback para o evento de touchstart
   onTouchStart() {
@@ -61,9 +65,9 @@ class Rect {
   }
 }
 function rect(x = 0, y = 0, height = 50, width = 50, color = 'black', fill = 'fill') {
-  let rect = new Rect(x, y, height,width, color, fill);
-  rect.display();
-  return rect;
+  let _rect = new Rect(x, y, height,width, color, fill);
+  _rect.display();
+  return _rect;
 }
 
 
@@ -133,7 +137,60 @@ class Spr {
   }
 }
 function spr(x = 0, y = 0, width = 50, height = 50, img, smooth = false) {
-  let spr = new Spr(x, y, width, height, img, smooth);
-  spr.display();
-  return spr;
+  let _spr = new Spr(x, y, width, height, img, smooth);
+  _spr.display();
+  return _spr;
+}
+
+class Text {
+  constructor(text = '', x = 0, y = 0, font = 'Arial') {
+    this.text = text;
+    this.x = x;
+    this.y = y;
+    this.font = font;
+    this.align = 'center';
+    this.size = 20;
+    this.color = '#fff';
+  }
+  
+  display() {
+  // Cria um elemento de texto
+  const textElement = document.createElement('p');
+  textElement.textContent = this.text;
+  // Define as propriedades do texto
+  textElement.style.fontSize = `${this.size}px`;
+  textElement.style.fontFamily = this.font;
+  textElement.style.color = this.color;
+  textElement.style.position = 'fixed';
+  // Adiciona o texto ao elemento do DOM
+  mainElement.appendChild(textElement);
+  // Calcula o tamanho do texto
+  const textMetrics = textElement.getBoundingClientRect();
+  const textWidth = textMetrics.width;
+  const textHeight = textMetrics.height;
+  // Define a origem do texto
+  let centerX = screen.width / 2;
+  let centerY = screen.height / 2;
+  let textX = this.x;
+  if (this.align == 'right') {
+      textX = this.x + centerX;
+  } else if (this.align == 'left') {
+      textX = (this.x - textWidth) + centerX;
+  } else {
+      textX = (this.x - textWidth / 2) + centerX;
+  }
+  // Define a posição vertical do texto
+  let textY = (this.y - textHeight) + centerY;
+  // Define a posição do texto
+  textElement.style.left = `${textX}px`;
+  textElement.style.bottom = `${textY}px`;
+  }
+}
+function print(text = '', x = 0, y = 0, font = 'Arial', fontSize = 20, color = '#000', align = 'center') {
+  let _text = new Text(text, x, y, font);
+  _text.color = color;
+  _text.size = fontSize;
+  _text.align = align;
+  _text.display();
+  return _text;
 }

@@ -1,6 +1,6 @@
-preloadScene('gameActivity')
-setTitle('Game')
-loadFont('latin_modern_mono');
+preloadScene('index')
+setTitle('Game2')
+
 // Cria um retângulo verde preenchido
 const right = new Rect(120, -100, 50, 50, 'green');
 
@@ -8,11 +8,10 @@ const right = new Rect(120, -100, 50, 50, 'green');
 const left = new Rect(-120, -100, 50, 50, 'red',);
 
 // Cria um sprite sem suavização de imagem
-const player = spr(20, 100, 50, 50, '/Template/img/player.png');
+const player = new Rect(20, 100, 50, 50, 'black');
 
 // Loop do jogo
 function TIC() {
-  
   // Limpa a tela
   cls();
   
@@ -22,7 +21,7 @@ function TIC() {
   left.display();
   
   // Exibe hm texto na tela
-  print('Hey Devs!', player.x, player.y+30, 'latin_modern_mono', 14, '#FFFFFF');
+  //print('Hey Devs!', player.x, player.y+30, 14, '#FFFFFF');
   
   // Executa a função move()
   move()
@@ -38,6 +37,6 @@ function move() {
     player.x -= speed;
   }
   if (player.isPressed) {
-    startScene('gameActivity')
+    startScene('index');
   }
 }

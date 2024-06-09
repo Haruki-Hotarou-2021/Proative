@@ -71,29 +71,29 @@ let w = window.innerWidth;
 let h = window.innerHeight;
 
 // Posiciona cada botão e adiciona a array buttons
-const up = new Btn(undefined, w*-0.2, h*-0.2, 50, 50);
-buttons.push(up);
+const _up_ = new Btn(undefined, w*-0.2, h*-0.2, 50, 50);
+buttons.push(_up_);
 
-const down = new Btn(undefined, w*-0.2, h*-0.4, 50, 50);
-buttons.push(down);
+const _down_ = new Btn(undefined, w*-0.2, h*-0.4, 50, 50);
+buttons.push(_down_);
 
-const left = new Btn(undefined, w*-0.3, h*-0.3, 50, 50);
-buttons.push(left);
+const _left_ = new Btn(undefined, w*-0.3, h*-0.3, 50, 50);
+buttons.push(_left_);
 
-const right = new Btn(undefined, w*-0.1, h*-0.3, 50, 50);
-buttons.push(right);
+const _right_ = new Btn(undefined, w*-0.1, h*-0.3, 50, 50);
+buttons.push(_right_);
 
-const a = new Btn(undefined, 50, -150, 50, 50);
-buttons.push(a);
+const _a_ = new Btn(undefined, 50, -150, 50, 50);
+buttons.push(_a_);
 
-const b = new Btn(undefined, 100, -100, 50, 50);
-buttons.push(b);
+const _b_ = new Btn(undefined, 100, -100, 50, 50);
+buttons.push(_b_);
 
-const x = new Btn(undefined, 0, -100, 50, 50);
-buttons.push(x);
+const _x_ = new Btn(undefined, 0, -100, 50, 50);
+buttons.push(_x_);
 
-const y = new Btn(undefined, 50, -50, 50, 50);
-buttons.push(y);
+const _y_ = new Btn(undefined, 50, -50, 50, 50);
+buttons.push(_y_);
 
 // Função que detecta toque em cada botao do gamepad (Retorna true ou false)
 function btn(id) {
@@ -101,8 +101,8 @@ function btn(id) {
     console.error(`Invalid button ID: ${id}`);
     return false;
   }
-  const button = buttons[id];
-  button.display();
+  const _button = buttons[id];
+  _button.display();
   return button.isPressed;
 }
 

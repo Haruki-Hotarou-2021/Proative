@@ -49,3 +49,45 @@ class Scene {
 }
 const main = new Scene();
 let this_scene = undefined;
+
+// Função assíncrona que pré carrega a tela
+async function preloadScene(pageName) {
+  try {
+    const response = await fetch(`${pageName}.html`);
+    if (response.ok) {
+      console.log(`Preloaded: ${pageName}.html`);
+    } else {
+      console.error(`Failed to preload: ${pageName}.html`);
+    }
+  } catch (error) {
+    console.error(`Preloading error: ${error.message}`);
+  }
+}
+
+// Função para trocar de tela
+function startScene(pageName) {
+  window.location.href = `${pageName}.html`;
+}
+
+// Função para fechar a tela
+function preventBack() {
+  //window.close();
+  // Prevent default back button behavior
+  history.pushState(null, null, ""); // Update browser history without creating a new entry
+  // Optionally, disable the back button (only works in some browsers)
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, ""); // Replace the current history entry
+  }
+}
+
+// Função para salvar dados localmente
+function save(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Função para carregar dados salvos localmente
+function load(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+

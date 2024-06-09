@@ -263,9 +263,9 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'center') {
   let centerX = screen.width / 2;
   let centerY = screen.height / 2;
   let textX = x;
-  if (align == 'left') {
+  if (align == 'right') {
       textX = x + centerX;
-  } else if (align == 'right') {
+  } else if (align == 'left') {
       textX = (x - textWidth) + centerX;
   } else {
       textX = (x - textWidth / 2) + centerX;

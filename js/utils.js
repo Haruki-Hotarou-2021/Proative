@@ -15,58 +15,21 @@ function newScript(script) {
   _newScript.src = script;
   document.game-scripts.appendChild(_newScript);
 }
-
-function print(text, x, y, fontSize = 20, color = '#000', align = 'left', font = 'Arial') {
-  let textX = x + screen.width / 2;
-  let textY = y + screen.height / 2;
-
-  // Cria um elemento de texto
-  const textElement = document.createElement('p');
-  textElement.textContent = text;
-
-  // Define as propriedades do texto
-  textElement.style.fontSize = `${fontSize}px`;
-  textElement.style.color = color;
-  textElement.style.position = 'fixed';
-  textElement.style.left = `${textX}px`;
-  textElement.style.bottom = `${textY}px`;
-  textElement.style.textAlign = align;
   
-  //if(font !== 'Arial') {
-
-    // Função para checar a existência da fonte
-    async function checkFont(font) {
-      
-      const fontFileURL = `./${font}.ttf`; 
-
-      const fontFace = new FontFace(font, `url('${fontFileURL}')`);
-      try {
-        await fontFace.load();
-        return true;
-      } catch (error) {
-        console.error(`Font '${font}' not found. Falling back to Arial.`);
-        return false;
-      }
-    }
-
-
-    // Checa a existência da fonte e aplica a fonte ao texto
-    checkFont(font).then(fontExists => {
-      if (fontExists) {
-        textElement.style.fontFamily = font;
-      } else {
-        textElement.style.fontFamily = 'Arial';
-      }
-      
-      // Adiciona o texto ao elemento do DOM
-      mainElement.appendChild(textElement);
-    });
-  //} else {
-    //mainElement.appendChild(textElement)
-  //}
-
-  // Retorna o elemento de texto
-  return textElement;
+function loadFont(fontName) {
+  // Define o conteúdo da regra @font-face com o nome da fonte passado como parâmetro
+  var fontFace = '\
+  @font-face {\
+    font-family: "' + fontName + '";\
+    src: url("' + fontName + '.ttf") format("truetype"),\
+    src: url("' + fontName + '.otf") format("opentype"),\
+    src: url("' + fontName + '.woff") format("woff"),\
+    src: url("' + fontName + '.woff2") format("woff2"),\
+  }';
+  // Adiciona a regra @font-face ao estilo
+  style.appendChild(document.createTextNode(fontFace));
+  // Adiciona o estilo ao cabeçalho do documento
+  document.head.appendChild(style);
 }
 
 // Define o Título da página

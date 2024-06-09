@@ -25,3 +25,7 @@ document.body.appendChild(mainElement);
 
 screen.width = mainElement.offsetWidth;
 screen.height = mainElement.offsetHeight;
+
+// Cria um novo estilo
+const style = document.createElement('style');
+style.type = 'text/css';
