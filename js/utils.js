@@ -58,7 +58,7 @@ if (url.endsWith('.ttf')) {
     src: url("' + URL + '") format("opentype"),\
     src: url("' + URL + '") format("woff"),\
     src: url("' + URL + '") format("woff2"),\
-  }'*/;
+  }'*/
   // Adiciona a regra @font-face ao estilo
   style.appendChild(document.createTextNode(fontFace));
   // Adiciona o estilo ao cabeçalho do documento

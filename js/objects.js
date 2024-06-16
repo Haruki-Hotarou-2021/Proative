@@ -50,13 +50,15 @@ class Rect {
   */
 
   // Callback para o evento de touchstart
-  onTouchStart() {
+  onTouchStart(callback) {
     this.isPressed = true;
+    callback();
   }
 
   // Callback para o evento de touchend
-  onTouchEnd() {
+  onTouchEnd(callback) {
     this.isPressed = false;
+    callback();
   }
   
    // Destrói o retângulo
@@ -122,13 +124,15 @@ class Spr {
   }
 */
   // Callback para o evento de touchstart
-  onTouchStart() {
+  onTouchStart(callback) {
     this.isPressed = true;
+    callback();
   }
 
   // Callback para o evento de touchend
-  onTouchEnd() {
+  onTouchEnd(callback) {
     this.isPressed = false;
+    callback();
   }
   
   // Destrói o sprite
