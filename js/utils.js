@@ -16,16 +16,49 @@ function newScript(script) {
   document.game-scripts.appendChild(_newScript);
 }
   
-function loadFont(fontName) {
+function loadFont(font) {
+  
+  let url = font;
+let fontName = url.split('/').pop().split('.')[0]; // Obtém o nome da fonte a partir da URL
+let fontFace;
+
+// Verifica se a URL termina com .ttf, .woff, .woff2, etc.
+if (url.endsWith('.ttf')) {
+  fontFace = `@font-face {
+    font-family: '${fontName}';
+    src: url('${url}') format('truetype');
+  }`;
+} else if (url.endsWith('.woff')) {
+  fontFace = `@font-face {
+    font-family: '${fontName}';
+    src: url('${url}') format('woff');
+  }`;
+} else if (url.endsWith('.woff2')) {
+  fontFace = `@font-face {
+    font-family: '${fontName}';
+    src: url('${url}') format('woff2');
+  }`;
+} // Adicione mais formatos conforme necessário
+
+  
+  /*
   // Define o conteúdo da regra @font-face com o nome da fonte passado como parâmetro
-  var fontFace = '\
+  let URL;
+
+  if (!url) {
+    URL = `${fontName}.ttf`;
+  } else {
+    URL = url;
+  }
+  
+  let fontFace = '\
   @font-face {\
     font-family: "' + fontName + '";\
-    src: url("' + fontName + '.ttf") format("truetype"),\
-    src: url("' + fontName + '.otf") format("opentype"),\
-    src: url("' + fontName + '.woff") format("woff"),\
-    src: url("' + fontName + '.woff2") format("woff2"),\
-  }';
+    src: url("' + URL + '") format("truetype")}'/*,\
+    src: url("' + URL + '") format("opentype"),\
+    src: url("' + URL + '") format("woff"),\
+    src: url("' + URL + '") format("woff2"),\
+  }'*/;
   // Adiciona a regra @font-face ao estilo
   style.appendChild(document.createTextNode(fontFace));
   // Adiciona o estilo ao cabeçalho do documento

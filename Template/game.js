@@ -1,6 +1,6 @@
-preloadScene('gameActivity')
-setTitle('Game')
-loadFont('latin_modern_mono');
+//preloadScene('gameActivity')
+//setTitle('Game')
+//loadFont('./template/fonts/PrStart.ttf');
 // Cria um retângulo verde preenchido
 const right = new Rect(120, -100, 50, 50, 'green');
 
@@ -8,7 +8,7 @@ const right = new Rect(120, -100, 50, 50, 'green');
 const left = new Rect(-120, -100, 50, 50, 'red',);
 
 // Cria um sprite sem suavização de imagem
-const player = spr(20, 100, 50, 50, '/Template/img/player.png');
+const player = spr(0, 100, 50, 50, '/Template/img/player.png');
 
 // Loop do jogo
 function TIC() {
@@ -22,7 +22,7 @@ function TIC() {
   left.display();
   
   // Exibe hm texto na tela
-  print('Hey Devs!', player.x, player.y+30, 'latin_modern_mono', 14, '#FFFFFF');
+  print('Hey Devs!', player.x, player.y+30, 'PrStart', 14, '#FFFFFF');
   
   // Executa a função move()
   move()
