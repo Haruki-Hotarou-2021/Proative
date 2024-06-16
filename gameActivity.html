@@ -20,20 +20,5 @@
   <script src="js/utils.js"></script>
   <game-scripts></game-scripts>
   <script src="/gameActivity.js"></script>
-  
-  <script>
-    function update() {
-    let lastTime = 0;
-    function loop(timestamp) {
-      const dt = timestamp - lastTime;
-      if (typeof TIC === 'function') {
-        TIC(dt);
-      }
-      lastTime = timestamp;
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-  }
-  update();
-  </script>
+  <script src="js/loop.js"></script>
 </html>
