@@ -11,7 +11,7 @@ class Rect {
     this.fill = fill; // 'fill' ou 'stroke'
   }
 
-  display() {
+  display(state = 'show') {
     const rectElement = document.createElement('div');
     rectElement.style.position = 'fixed';
     rectElement.style.zIndex = this.z;
@@ -39,6 +39,12 @@ class Rect {
     rectElement.addEventListener('touchend', this.onTouchEnd.bind(this));
     
     mainElement.appendChild(rectElement);
+    
+    if (state == 'hide') {
+      rectElement.style.visibility = 'hidden';
+    } else {
+      rectElement.style.visibility = 'visible'
+    } 
     
   }
   
@@ -90,7 +96,7 @@ class Spr {
     
   }
   
-  display() {
+  display(state = 'show') {
     // Criar elemento DOM para o sprite
     this.spriteElement = document.createElement('img');
     this.spriteElement.src = this.img;
@@ -119,6 +125,12 @@ class Spr {
 
     // Adicionar sprite ao DOM
     mainElement.appendChild(this.spriteElement);
+    
+    if (state == 'hide') {
+      this.spriteElement.style.visibility = 'hidden';
+    } else {
+      this.spriteElement.style.visibility = 'visible'
+    }
   }
   
 /*
@@ -165,7 +177,7 @@ class Text {
     this.color = '#fff';
   }
   
-  display() {
+  display(state = 'show') {
     // Cria um elemento de texto
     this.textElement = document.createElement('p');
     this.textElement.textContent = this.text;
@@ -196,10 +208,16 @@ class Text {
     // Define a posição do texto
     this.textElement.style.left = `${textX}px`;
     this.textElement.style.bottom = `${textY}px`;
+    
+    if (state == 'hide') {
+      //this.textElement.style.visibility = 'hidden';
+      this.textElement.style.display = 'none';
+    } else {
+      //this.textElement.style.visibility = 'visible'
+      this.textElement.style.display = 'block';
+    }
   }
-  destroy() {
-    mainElement.removeChild(this.textElement);
-  }
+  
 }
 function print(text = '', x = 0, y = 0, font = 'Arial', fontSize = 20, color = '#000', align = 'center') {
   let _text = new Text(text, x, y, font);
