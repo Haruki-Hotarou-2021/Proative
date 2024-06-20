@@ -52,13 +52,17 @@ class Rect {
   // Callback para o evento de touchstart
   onTouchStart(callback) {
     this.isPressed = true;
-    callback();
+    if (typeof callback == 'function') {
+      callback();
+    }
   }
 
   // Callback para o evento de touchend
   onTouchEnd(callback) {
     this.isPressed = false;
-    callback();
+    if (typeof callback == 'function') {
+      callback();
+    }
   }
   
    // Destrói o retângulo
@@ -126,13 +130,17 @@ class Spr {
   // Callback para o evento de touchstart
   onTouchStart(callback) {
     this.isPressed = true;
-    callback();
+    if (typeof callback == 'function') {
+      callback();
+    }
   }
 
   // Callback para o evento de touchend
   onTouchEnd(callback) {
     this.isPressed = false;
-    callback();
+    if(typeof callback == 'function'){
+      callback();
+    }
   }
   
   // Destrói o sprite
@@ -158,36 +166,39 @@ class Text {
   }
   
   display() {
-  // Cria um elemento de texto
-  const textElement = document.createElement('p');
-  textElement.textContent = this.text;
-  // Define as propriedades do texto
-  textElement.style.fontSize = `${this.size}px`;
-  textElement.style.fontFamily = this.font;
-  textElement.style.color = this.color;
-  textElement.style.position = 'fixed';
-  // Adiciona o texto ao elemento do DOM
-  mainElement.appendChild(textElement);
-  // Calcula o tamanho do texto
-  const textMetrics = textElement.getBoundingClientRect();
-  const textWidth = textMetrics.width;
-  const textHeight = textMetrics.height;
-  // Define a origem do texto
-  let centerX = screen.width / 2;
-  let centerY = screen.height / 2;
-  let textX = this.x;
-  if (this.align == 'right') {
+    // Cria um elemento de texto
+    this.textElement = document.createElement('p');
+    this.textElement.textContent = this.text;
+    // Define as propriedades do texto
+    this.textElement.style.fontSize = `${this.size}px`;
+    this.textElement.style.fontFamily = this.font;
+    this.textElement.style.color = this.color;
+    this.textElement.style.position = 'fixed';
+    // Adiciona o texto ao elemento do DOM
+    mainElement.appendChild(this.textElement);
+    // Calcula o tamanho do texto
+    const textMetrics = this.textElement.getBoundingClientRect();
+    const textWidth = textMetrics.width;
+    const textHeight = textMetrics.height;
+    // Define a origem do texto
+    let centerX = screen.width / 2;
+    let centerY = screen.height / 2;
+    let textX = this.x;
+    if (this.align == 'right') {
       textX = this.x + centerX;
-  } else if (this.align == 'left') {
+    } else if (this.align == 'left') {
       textX = (this.x - textWidth) + centerX;
-  } else {
+    } else {
       textX = (this.x - textWidth / 2) + centerX;
+    }
+    // Define a posição vertical do texto
+    let textY = (this.y - textHeight) + centerY;
+    // Define a posição do texto
+    this.textElement.style.left = `${textX}px`;
+    this.textElement.style.bottom = `${textY}px`;
   }
-  // Define a posição vertical do texto
-  let textY = (this.y - textHeight) + centerY;
-  // Define a posição do texto
-  textElement.style.left = `${textX}px`;
-  textElement.style.bottom = `${textY}px`;
+  destroy() {
+    mainElement.removeChild(this.textElement);
   }
 }
 function print(text = '', x = 0, y = 0, font = 'Arial', fontSize = 20, color = '#000', align = 'center') {

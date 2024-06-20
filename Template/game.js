@@ -1,6 +1,6 @@
-preloadScene('gameActivity')
-setTitle('Game')
-loadFont('/Template/fonts/PrStart.ttf');
+// Carrega a fonte
+//loadFont('/Template/fonts/PrStart.ttf');
+
 // Cria um retângulo verde preenchido
 const right = new Rect(120, -100, 50, 50, 'green');
 
