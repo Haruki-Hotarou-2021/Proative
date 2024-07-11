@@ -6,6 +6,7 @@ let loop = `
           if (typeof TIC === 'function') {
             TIC(dt);
           }
+          updateCamera()
           lastTime = timestamp;
           requestAnimationFrame(loop);
         }

@@ -313,6 +313,38 @@ function print(text, x, y, fontSize = 20, color = '#000', align = 'center') {
 }
 
 
+// Funções de câmera
+let cameraTarget = null;
+let cameraSmooth = 1;
+
+function camera(target, smooth = 1) {
+  cameraTarget = target;
+  cameraSmooth = smooth;
+}
+
+// Posições atuais da câmera
+let currentOffsetX = 0;
+let currentOffsetY = 0;
+
+// Loop de atualização da câmera
+function updateCamera() {
+  if (cameraTarget) {
+    const targetX = -cameraTarget.x;
+    const targetY = cameraTarget.y;
+
+    const desiredOffsetX = targetX - screen.width / 2;
+    const desiredOffsetY = targetY - screen.height / 2;
+
+    // Ajuste suave da posição atual
+    currentOffsetX += (desiredOffsetX - currentOffsetX) / cameraSmooth;
+    currentOffsetY += (desiredOffsetY - currentOffsetY) / cameraSmooth;
+
+    mainElement.style.transform = `translate(${currentOffsetX}px, ${currentOffsetY}px)`;
+  } else {
+    mainElement.style.transform = 'translate(-50%, -50%)';
+  }
+}
+
 
 // LOOP --------------------------------
 
@@ -324,6 +356,7 @@ let loop = `
           if (typeof TIC === 'function') {
             TIC(dt);
           }
+          updateCamera();
           lastTime = timestamp;
           requestAnimationFrame(loop);
         }

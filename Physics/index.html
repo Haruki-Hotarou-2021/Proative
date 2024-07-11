@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Example</title>
+  <script src="/Physics/matter.min.js"></script>
+  <script src="physics.js"></script>
+</head>
+<body>
+  <script>
+    setGravity(1);
+  
+    const sprite = new Spr(100, 100, 50, 50, '/Template/img/player.png');
+    sprite.rigidBody('dynamic');
+    
+    function TIC(){
+      sprite.display();
+    }
+    
+    function update() {
+      let lastTime = 0;
+      function loop(timestamp) {
+        const dt = timestamp - lastTime;
+        if (typeof TIC === 'function') {
+          TIC(dt);
+        }
+        lastTime = timestamp;
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    }
+    update();
+  </script>
+</body>
+</html>
