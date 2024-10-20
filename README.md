@@ -1,14 +1,14 @@
-# Kosmic 2D
+# Proative
 
-Kosmic é um framework de jogos JavaScript 2D leve e fácil de usar, projetado para ajudar desenvolvedores iniciantes a criar jogos simples.
+Proative é um framework de jogos JavaScript 2D leve e fácil de usar, projetado para ajudar desenvolvedores iniciantes a criar jogos simples.
 
 Esta documentação fornece uma visão geral do framework e documenta suas funções e classes principais. Para começar a usar o kodoma, siga estas etapas:
 
 #### Inclusão: 
-Adicione o arquivo kodoma.js ao seu projeto HTML, acima do arquivo do seu jogo:
+Adicione o arquivo proative.js ao seu projeto HTML, acima do arquivo do seu jogo:
 
 ```html
-<script src="kosmic.js"></script>
+<script src="proative.js"></script>
 <script src="game.js"></script>
 ```
 
